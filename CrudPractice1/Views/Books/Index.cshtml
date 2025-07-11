@@ -1,0 +1,79 @@
+﻿@model IEnumerable<CrudPractice1.Models.Book>
+
+@{
+    ViewData["Title"] = "Book";
+}
+
+<h1>Book</h1>
+<!-- 查詢表單 -->
+<form asp-action="Index" method="get" class="mb-3 d-flex gap-2">
+    <input type="text" name="TitleFilter" class="form-control" style="width: 250px;" placeholder="Search by title" value="@ViewData["TitleFilter"]" />
+    <input type="text" name="CategoryFilter" class="form-control" style="width: 250px;" placeholder="Search by category" value="@ViewData["CategoryFilter"]" />
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+</form>
+<!-- 建立新資料 -->
+<form asp-action="Create" method="get">
+    <button type="submit" class="btn btn-success">Create New</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ISBN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublishedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookCategories)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishedDate)
+            </td>
+            <td>@string.Join(", ", item.BookCategories.Select(bc => bc.Category.Name))</td>
+            <td>
+                @(item.Price?.ToString("N2") ?? "")
+            </td>
+            
+            <td>
+                <form asp-action="Edit" asp-route-id="@item.BookId" method="get" style="display:inline;">
+                    <button type="submit" class="btn btn-primary btn-sm">Edit</button>
+                </form>
+
+                    <form asp-action="Details" asp-route-id="@item.BookId" method="get" style="display:inline;">
+                    <button type="submit" class="btn btn-info btn-sm">Details</button>
+                </form>
+
+                    <form asp-action="Delete" asp-route-id="@item.BookId" method="get" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

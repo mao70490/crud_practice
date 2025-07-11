@@ -1,0 +1,160 @@
+﻿@model CrudPractice1.Models.Movie2
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Movie2</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleaseDate" class="control-label"></label>
+                <input asp-for="ReleaseDate" class="form-control" />
+                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Genre" class="control-label"></label>
+                <select asp-for="Genre" class="form-control" asp-items="ViewBag.Genres"></select>
+                <span asp-validation-for="Genre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OriginalTitle" class="control-label"></label>
+                <input asp-for="OriginalTitle" class="form-control" />
+                <span asp-validation-for="OriginalTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Director" class="control-label"></label>
+                <input asp-for="Director" class="form-control" />
+                <span asp-validation-for="Director" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cast" class="control-label"></label>
+                <input asp-for="Cast" class="form-control" />
+                <span asp-validation-for="Cast" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DurationMinutes" class="control-label"></label>
+                <input asp-for="DurationMinutes" class="form-control" />
+                <span asp-validation-for="DurationMinutes" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">支援語言</label>
+
+                @foreach (var lang in (List<string>)ViewBag.AllLanguages)
+                {
+                    var isChecked = Model.MovieLanguages != null &&
+                    Model.MovieLanguages.Any(ml => ml.LanguageCode == lang);
+
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               name="SupportedLanguages"
+                               value="@lang"
+                        @(isChecked ? "checked" : "") />
+                        <label class="form-check-label">@lang</label>
+                    </div>
+                }
+
+                <span asp-validation-for="MovieLanguages" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImdbScore" class="control-label">IMDB 評分</label><br />
+
+                @for (int i = 1; i <= 5; i++)
+                {
+                    var label = i switch
+                    {
+                        1 => "非常差",
+                        2 => "差",
+                        3 => "普通",
+                        4 => "好",
+                        5 => "非常好",
+                        _ => "未定"
+                    };
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio"
+                               name="ImdbScore"
+                               value="@i"
+                        @(Model.ImdbScore == i ? "checked" : "") />
+                        <label class="form-check-label">@label</label>
+                    </div>
+                }
+
+                <span asp-validation-for="ImdbScore" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BoxOffice" class="control-label"></label>
+                <input asp-for="BoxOffice" class="form-control" />
+                <span asp-validation-for="BoxOffice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Synopsis" class="control-label"></label>
+                <input asp-for="Synopsis" class="form-control" />
+                <span asp-validation-for="Synopsis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="PosterFile" class="control-label">上傳海報圖片</label>
+                <input type="file" name="PosterFile" class="form-control" accept="image/*" required />
+            </div>
+            <div class="form-group">
+                <label asp-for="TrailerUrl" class="control-label"></label>
+                <input asp-for="TrailerUrl" class="form-control" />
+                <span asp-validation-for="TrailerUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductionCompany" class="control-label"></label>
+                <input asp-for="ProductionCompany" class="form-control" />
+                <span asp-validation-for="ProductionCompany" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Budget" class="control-label"></label>
+                <input asp-for="Budget" class="form-control" />
+                <span asp-validation-for="Budget" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Awards" class="control-label"></label>
+                <input asp-for="Awards" class="form-control" />
+                <span asp-validation-for="Awards" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

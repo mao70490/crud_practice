@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CrudPractice1.Models.Movie2>
+
+@{
+    ViewData["Title"] = "Movie2";
+}
+
+<h1>Movie2</h1>
+<!-- 查詢表單 -->
+<form asp-action="Index" method="get" class="mb-3 d-flex gap-2">
+    <input type="text" name="SearchString" class="form-control" style="width: 300px;" placeholder="Search by title or genre" value="@ViewData["CurrentFilter"]" />
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+</form>
+<!-- 建立新資料 -->
+<form asp-action="Create" method="get">
+    <button type="submit" class="btn btn-success">Create New</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>Release Date</th>
+            <th>Release Time</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>@item.ReleaseDate.ToString("yyyy-MM-dd")</td>
+                <td>@item.ReleaseDate.ToString("HH:mm:ss")</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @item.Price.ToString("N2")
+                </td>
+                <td>
+                    <form asp-action="Edit" asp-route-id="@item.Id" method="get" style="display:inline;">
+                        <button type="submit" class="btn btn-primary btn-sm">Edit</button>
+                    </form>
+
+                    <form asp-action="Details" asp-route-id="@item.Id" method="get" style="display:inline;">
+                        <button type="submit" class="btn btn-info btn-sm">Details</button>
+                    </form>
+
+                    <form asp-action="Delete" asp-route-id="@item.Id" method="get" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

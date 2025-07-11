@@ -1,0 +1,27 @@
+﻿# Visual Studio 專案忽略
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.log
+*.vspscc
+*.vssscc
+*.cache
+*.pdb
+*.exe
+*.dll
+*.idb
+*.class
+*.dll
+*.dbmdl
+
+# 忽略資料庫檔案
+*.mdf
+*.ldf
+
+# 忽略測試輸出資料夾
+TestResults/
+
+# 其他忽略
+*.DS_Store
