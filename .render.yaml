@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: crud-practice
+    env: dotnet
+    plan: free
+    branch: main
+    buildCommand: dotnet build
+    startCommand: dotnet CrudPractice1.dll
+    envVars:
+      - key: ConnectionStrings__CrudPractice1Context
+        value: Server=0.tcp.jp.ngrok.io,10005;Database=CrudPractice1Context;User Id=sa;Password=MyStrong@Passw0rd;Encrypt=False;TrustServerCertificate=True;
