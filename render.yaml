@@ -1,7 +1,6 @@
 services:
   - type: web
     name: crud-practice
-    runtime: dotnet
     plan: free
     branch: main
     buildCommand: dotnet build
