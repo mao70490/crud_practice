@@ -1,7 +1,7 @@
 services:
   - type: web
     name: crud-practice
-    env: dotnetcore
+    runtime: dotnet
     plan: free
     branch: main
     buildCommand: dotnet build
